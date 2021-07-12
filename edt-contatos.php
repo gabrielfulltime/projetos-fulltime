@@ -1,5 +1,5 @@
 <?php
-$id = $_POST['id'];
+$id = $_GET['id'];
 $nome = $_POST['nome'];
 $email = $_POST['email'];
 
@@ -7,7 +7,7 @@ $con = new mysqli('localhost:3306', 'root', '', 'cadastro'); //Criando conexão 
 if ($con->connect_error) {
     die("<script>
     alert('Conexão falhou');
-    location='./salvarContatos.php'; </script>");
+    location='./lista-de-contatos.php'; </script>");
 }
 $sql = "UPDATE contatos
     SET email = '$email',
@@ -18,12 +18,12 @@ $sql = "UPDATE contatos
 if ($con->query($sql) === true){
     echo "<script>
     alert('Editado com sucesso');
-    location = './lista-contatos.php';
+    location = './lista-de-contatos.php';
     </script>";
 }else {
     echo"<script>
     alert('Falha ao Editar');
-    location = './lista-contatos.php';
+    location = './lista-de-contatos.php';
     </script>";
 }
 

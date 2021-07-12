@@ -4,7 +4,7 @@ $email = $_POST["email"];
 if ((empty($nome)) or (empty($email)) ) {
     die("<script>
     alert('Falha ao salvar pois O campo de nome e/ou de email está/ão vazio/os');
-    location = './lista-contatos.php';
+    location = './lista-de-contatos.php';
     </script>");
 }
 $con = new mysqli('localhost:3306', 'root', '', 'cadastro'); //Criando conexão com um objeto mysqli
@@ -12,18 +12,18 @@ $sql = "INSERT INTO contatos (id, nome, email) VALUES (DEFAULT, '$nome', '$email
 if ($con->connect_error) {
     die("<script>
         alert('Conexão falhou');
-        location='./lista-contatos.php'; 
+        location='./lista-de-contatos.php'; 
         </script>");
 }
 if ($con->query($sql) === true){
     echo "<script>
     alert('Salvado com sucesso');
-    location = './lista-contatos.php';
+    location = './lista-de-contatos.php';
     </script>";
 } else {
     echo"<script>
     alert('Falha ao salvar');
-    location = './lista-contatos.php';
+    location = './lista-de-contatos.php';
     </script>";
 }
 $con->close();

@@ -47,7 +47,7 @@ h3 {
 
 button, input {
     height: 36px;
-    margin-top: 24px;
+    margin-top: 20px;
     font-size: 25px;
     cursor: pointer;
 }
@@ -59,7 +59,7 @@ td {
 }
 
 table {
-    width: 612px;
+    width:825px;
     font-size: 25px;
     text-align: left;
     margin: auto;
@@ -99,7 +99,7 @@ header h1 {
     margin-top: 18px;
 }
 
-.botao {
+a {
     text-align: center;
 }
 
@@ -109,6 +109,11 @@ header h1 {
 
 .inp {
     width: 15px;
+}
+
+.editar, .excluir {
+    margin: 5px auto 5px auto;
+    font-size: 20px;
 }
 
 
@@ -124,7 +129,7 @@ header h1 {
 }
 
 #sec_tabela {
-    width: 626px;
+    width: 850px;
     overflow: auto;
 }
 
@@ -150,32 +155,29 @@ header h1 {
     border: solid rgb(170, 170, 170);
 }
 
-#editar,
-#excluir,
+.editar,
+.excluir,
 #salvar {
-    width: 210px;
-    height: 48px;
+    width: auto;
+    height: auto;
     border: solid 3px black;
 }
 
-#editar,
+.editar,
 #salvar {
     border-color: green;
     background-color: rgb(208, 255, 208);
 }
 
-#editar {
-    margin-top: 40px
-}
 
 #salvar {
     width: 180px;
 }
 
-#excluir {
+.excluir {
     border-color: red;
     background-color: rgb(255, 198, 198);
-    margin-top: 60px;
+
 }
 
 #input_name {
@@ -189,18 +191,18 @@ tr:nth-child(even) {
     background-color: rgb(233, 255, 231);
 }
 
-#editar:hover,
+.editar:hover,
 #salvar:hover {
     background-color: rgb(226, 255, 226);
 }
 
-#excluir:hover {
+.excluir:hover {
     background-color: rgb(255, 228, 228);
 }
 
-#excluir:active,
+.excluir:active,
 #salvar:active,
-#editar:active {
+.editar:active {
     border: inset;
 }
 
