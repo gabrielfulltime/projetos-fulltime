@@ -1,0 +1,217 @@
+/*Todos os elementos*/
+
+* {
+    font-family: 'Times New Roman', Times, serif;
+    border-radius: 15px;
+}
+
+
+/*Elementos*/
+
+header {
+    width: 1200px;
+    height: auto;
+    text-align: center;
+}
+
+label {
+    font-size: 25px;
+}
+
+input {
+    border-radius: 10px;
+    width: 264px;
+    height: 36px;
+    font-size: 20px;
+}
+
+article {
+    height: 600px;
+    width: 1200px;
+    margin-top: 24px;
+}
+
+section {
+    float: left;
+    width: 360px;
+    height: 420px;
+    border: solid 2px rgb(58, 58, 58);
+    border-radius: 7px;
+}
+
+h3 {
+    margin-top: 48px;
+    font-size: 25px;
+    text-align: center;
+}
+
+button, input {
+    height: 36px;
+    margin-top: 24px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+table,
+td {
+    text-align: justify;
+    border: 1px solid black
+}
+
+table {
+    width: 612px;
+    font-size: 25px;
+    text-align: left;
+    margin: auto;
+    border-radius: 0px;
+}
+
+
+th,
+td,
+tr {
+    height: 35px;
+    border-radius: 0px;
+}
+
+
+
+th {
+    text-align: center;
+    background-color: rgb(179, 250, 179);
+    font-weight: bold;
+}
+
+p {
+    float: left;
+    margin-left: 240px;
+}
+
+header h1 {
+    font-size: 48px;
+}
+
+
+/*Classes*/
+
+.add {
+    text-align: center;
+    margin-top: 18px;
+}
+
+.botao {
+    text-align: center;
+}
+
+.lbl_add {
+    margin-bottom: 12px;
+}
+
+.inp {
+    width: 15px;
+}
+
+
+/*id*/
+
+#site_all {
+    width: 1200px;
+    height: 1200px;
+}
+
+#sec_adicionar {
+    width: 300px;
+}
+
+#sec_tabela {
+    width: 626px;
+    overflow: auto;
+}
+
+#sec_tabela,
+#sec_funcoes {
+    margin-left: 9px;
+}
+
+#sec_funcoes {
+    width: 240px;
+}
+
+#txtBusca {
+    width: 480px;
+    height: 36px;
+    margin-right: 18px;
+    margin-bottom: 12px;
+}
+
+#pesquisa {
+    margin: 0;
+    background-color: rgb(255, 255, 255);
+    border: solid rgb(170, 170, 170);
+}
+
+#editar,
+#excluir,
+#salvar {
+    width: 210px;
+    height: 48px;
+    border: solid 3px black;
+}
+
+#editar,
+#salvar {
+    border-color: green;
+    background-color: rgb(208, 255, 208);
+}
+
+#editar {
+    margin-top: 40px
+}
+
+#salvar {
+    width: 180px;
+}
+
+#excluir {
+    border-color: red;
+    background-color: rgb(255, 198, 198);
+    margin-top: 60px;
+}
+
+#input_name {
+    margin-bottom: 12px;
+}
+
+
+/*Diferentes*/
+
+tr:nth-child(even) {
+    background-color: rgb(233, 255, 231);
+}
+
+#editar:hover,
+#salvar:hover {
+    background-color: rgb(226, 255, 226);
+}
+
+#excluir:hover {
+    background-color: rgb(255, 228, 228);
+}
+
+#excluir:active,
+#salvar:active,
+#editar:active {
+    border: inset;
+}
+
+#pesquisa:hover {
+    background-color: rgb(221, 221, 221);
+}
+
+#pesquisa:active {
+    border: inset;
+}
+
+table tr:hover {
+    background-color: rgb(213, 255, 203);
+}
