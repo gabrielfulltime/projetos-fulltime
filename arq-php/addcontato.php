@@ -16,7 +16,7 @@ if ($con->connect_error) {
     die($con->connect_error);
 }
 if ($con->query($sql) === true) {
-    die("Salvo com sucesso $nome e $email");
+    die("Salvo com sucesso!! nome =  $nome, email =  $email");
 } else {
     die("Erro ao salvar");
 }

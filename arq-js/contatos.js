@@ -41,8 +41,8 @@ function gerarTab(jsonList) {
                 myTd.classList.add("funcoes");
                 btnExc.classList.add("excluir");
                 btnEdt.classList.add('editar');
-                btnEdt.setAttribute('onclick', "editarContato(" + (jsonList['contatos'][i].id) + ")")
-                btnExc.setAttribute('onclick', "excluirContato(" + (jsonList['contatos'][i].id) + ")")
+                btnEdt.setAttribute("onclick", `editarContato('${(jsonList['contatos'][i].id)}', '${(jsonList['contatos'][i].nome)}', '${(jsonList['contatos'][i].email)}')`)
+                btnExc.setAttribute("onclick", `excluirContato('${(jsonList['contatos'][i].id)}', '${(jsonList['contatos'][i].nome)}', '${(jsonList['contatos'][i].email)}')`)
                 btnEdt.setAttribute("type", 'button');
                 btnExc.setAttribute("type", 'button');
 
