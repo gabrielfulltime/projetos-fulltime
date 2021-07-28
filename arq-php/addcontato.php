@@ -1,31 +1,26 @@
 <?php
-$nome = $_POST["nome"];
-$email = $_POST["email"];
-if ((empty($nome)) or (empty($email)) ) {
-    die("<script>
-    alert('Falha ao salvar pois O campo de nome e/ou de email está/ão vazio/os');
-    location = './lista-de-contatos.php';
-    </script>");
-}
-$con = new mysqli('localhost:3306', 'root', '', 'cadastro'); //Criando conexão com um objeto mysqli
+
+
+// Teste de dados Json  
+// header("Content-type: text/html; charset=UTF-8");
+
+$data = json_decode(file_get_contents("php://input"));
+
+$nome = $data->nome;
+$email = $data->email;
+
+// Dê include em conexão.php
+include("conexao.php");
 $sql = "INSERT INTO contatos (id, nome, email) VALUES (DEFAULT, '$nome', '$email');";
 if ($con->connect_error) {
-    die("<script>
-        alert('Conexão falhou');
-        location='./lista-de-contatos.php'; 
-        </script>");
+    die($con->connect_error);
 }
-if ($con->query($sql) === true){
-    echo "<script>
-    alert('Salvado com sucesso');
-    location = './lista-de-contatos.php';
-    </script>";
+if ($con->query($sql) === true) {
+    die("Salvo com sucesso $nome e $email");
 } else {
-    echo"<script>
-    alert('Falha ao salvar');
-    location = './lista-de-contatos.php';
-    </script>";
+    die("Erro ao salvar");
 }
+
 $con->close();
 
 ?>
