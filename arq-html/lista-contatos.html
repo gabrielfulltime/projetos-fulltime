@@ -11,23 +11,23 @@
     <link rel="stylesheet" href="\lista-testes\arq-css\css-salvar.css">
 </head>
 
-<body onload="trazerContatos()">
+<body>
 
     <header>
         <h1>Lista de Contato</h1>
 
         <div id="barra_pesquisa">
-            <form action="lista-de-contatos.php" method="GET">
+            <form method="GET">
                 <label for="busc"></label>
                 <input type="search" name="busc" id="txtBusca" placeholder="Buscar Contato">
-                <button onclick="trazerContatos()" id="pesquisa">Pesquisar</button>
+                <button  type="submit" id="pesquisa">Pesquisar</button>
             </form>
         </div>
     </header>
     <article>
         <section id="sec_adicionar">
 
-            <form  method="POST" class="add">
+            <form  method="POST" class="add" >
 
                 <h3>Adicionar contato</h3>
 
@@ -37,7 +37,7 @@
                 <label for="email" class="lbl_add">Email:</label><br>
                 <input type="email" name="email" id="input_email" class="add" placeholder="exemplo@email.com">
 
-                <button onclick="addContatos()" class="see" id="salvar">Salvar</button>
+                <button type="submit" class="see" id="salvar">Salvar</button>
 
             </form>
         </section>
@@ -73,9 +73,7 @@
         <p>Creditos</p>
         <p>Creditos</p>
     </footer>
-    <script src="\lista-testes\arq-js\add-contatos.js"></script>
     <script src="\lista-testes\arq-js\contatos.js"></script>
-    <script src="\lista-testes\arq-js\funcoes.js"></script>
 </body>
 
 </html>

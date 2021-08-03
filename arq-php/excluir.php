@@ -6,14 +6,13 @@ $con = new mysqli('localhost:3306', 'root', '', 'cadastro'); //Criando conexão 
 
 $sql = "DELETE FROM contatos WHERE id = '$id';";
 
-if ($con->connect_error) {
-    die("Erro ao excluir esse contato");
+
+$queryRealizada = (($con->query($sql) == true) and ($con->error == "") and $con->affected_rows > 0);
+if ($queryRealizada) {
+    http_response_code(204);
+    return false;
 }
-
-$result = $con->query($sql);
-
-echo "Excluido com sucesso";
-
+http_response_code(409);
 
 $con->close();
 

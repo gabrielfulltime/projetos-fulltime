@@ -2,10 +2,9 @@
 
 
 // Teste de dados Json  
-// header("Content-type: text/html; charset=UTF-8");
+header("Content-type: text/html; charset=UTF-8");
 
 $data = json_decode(file_get_contents("php://input"));
-
 $nome = $data->nome;
 $email = $data->email;
 
@@ -13,13 +12,16 @@ $email = $data->email;
 include("conexao.php");
 $sql = "INSERT INTO contatos (id, nome, email) VALUES (DEFAULT, '$nome', '$email');";
 if ($con->connect_error) {
-    die($con->connect_error);
+    echo $con->connect_error;
 }
-if ($con->query($sql) === true) {
-    die("Salvo com sucesso!! nome =  $nome, email =  $email");
-} else {
-    die("Erro ao salvar");
+
+
+$queryRealizada = ($con->query($sql) == true) and ($con->error == "");
+if ($queryRealizada) {
+    http_response_code(201);
+    return false;
 }
+http_response_code(400);
 
 $con->close();
 

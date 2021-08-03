@@ -1,32 +1,30 @@
-
 <?php
-
 include("conexao.php");
 
-header('Content-Type: application/json');
-$sql = " SELECT * FROM contatos ";
-$sql .= "WHERE nome like '%%' or email LIKE '%%'";
-$sql .= "ORDER BY nome, email";
+// $data = json_decode(file_get_contents("php://input"));
+$pesquisa = isset($_GET['pesquisa']) ? $_GET['pesquisa'] : "";
+$id = isset($_GET['idCont']) ? $_GET['idCont'] : false;
+
+$sql = " SELECT * FROM contatos";
+
+// Realizar o select por id ou pelo nome/email
+if ($id != false) {
+    $sql .= " WHERE id = '$id'";
+} else {
+    $sql .= " WHERE nome like '%$pesquisa%' or email LIKE '%$pesquisa%'";
+}
+$sql .= " ORDER BY nome, email";
 
 $result = $con->query($sql);
 
-if ($result->num_rows > 0) {
-    $contatos =   '{"contatos":[';
-
-    $coloqvirg = false;
-
+$contatos = ["contatos" => []];
+$retornouLinhas = $result->num_rows > 0;
+if ($retornouLinhas) {
     while ($linha = $result->fetch_array()) {
-        if ($coloqvirg) {
-            $contatos .= ',';
-        }
-        $contatos .= '{"nome":"' . $linha['nome'] . '", "email": "' . $linha['email'] . '", "id": ' . $linha['id'] . '}';
-        $coloqvirg = true;
+        $contatos["contatos"][] = $linha;
     }
-    $contatos .= "]}";
-    json_encode($contatos);
-    echo $contatos;
-    file_put_contents("dados.json", ($contatos));
+    
 }
+echo json_encode($contatos);
+file_put_contents("dados.json", json_encode($contatos));
 
-
- /*WHERE nome LIKE '%$busc%' OR email LIKE '%$busc%'*/
