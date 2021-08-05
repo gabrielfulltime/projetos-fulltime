@@ -23,6 +23,8 @@ input {
     width: 264px;
     height: 36px;
     font-size: 20px;
+    outline: none;
+
 }
 
 article {
@@ -173,6 +175,7 @@ tr .editar,tr  .excluir {
 .excluir,
 #salvar {
     width: auto;
+    outline: none;
     height: auto;
     border: solid 3px black;
 }

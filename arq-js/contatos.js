@@ -9,6 +9,9 @@ window.onload = function () {
     btnSalv.onclick = function () { return addContatos() };
 }
 
+
+
+
 // ---->>>> Funções referente a tabela e a pesquia <<<<----
 // Traz todos os contatos
 function trazerContatos() {
@@ -93,79 +96,75 @@ function gerarTab(jsonList) {
 }
 
 // ---->>>> Funções para os botões dos contatos <<<<----
-
-
-
 // Função executada ao clicar no botão de editar um contato
 function editarContato(numId, nomeContato, emailContato) {
-    let confirmacao = confirm("Voce tem certeza que deseja editar o contato? \n(nome: " + nomeContato + ", email: " + emailContato + ")");
+    let confirmacao = confirm("Você tem certeza que deseja editar o contato? \nNome: " + nomeContato + ", Email: " + emailContato + ")");
     if (!confirmacao) {
         alert("Operação cancelada");
-    } else { // Aqui vai todo o codigo para editar
-        let validaNome = true;
-        while (validaNome) {
-            var newNome = window.prompt(`Insira um novo nome no espaço a seguir: `, `${nomeContato}`);
-            if (newNome === null) {
-                alert("Edição cancelada");
-                validaNome = false;
-            } else if (newNome == '' || newNome == " ") {
-                alert("Insira algum caractere no seu novo nome");
-            } else {
-                validaNome = false;
+        return false;
+    }
+    // Aqui vai todo o codigo para editar
+    let validaNome = true;
+    while (validaNome) {
+        var newNome = window.prompt(`Insira um novo nome no espaço a seguir: `, `${nomeContato}`);
+        if (newNome === null) {
+            alert("Edição cancelada");
+            return false;
+        }
+        let nomeVazio = newNome == '' || newNome == " "
+        if (nomeVazio) {
+            alert("Campo de nome vazio. Por favor, insira um novo nome");
+        } else {
+            validaNome = false;
+        }
+    }
+    if (!validaNome) {
+        let emailInvalido = true;
+        let newEmail = emailContato
+
+        while (emailInvalido) {
+            newEmail = window.prompt(`Insira um novo email no espaço a seguir: `, `${newEmail}`);
+            if (newEmail === null) {
+                alert("Operação cancelada");
+                return false
+            }
+            emailInvalido = !(validacaoEmail(newEmail));
+            if (emailInvalido) {
+                alert("Email invalido, tente novamente");
             }
         }
-        if (!validaNome) {
-            let validaEmail = true;
-            while (validaEmail) {
-                var newEmail = window.prompt(`Insira um novo email no espaço a seguir: `, `${emailContato}`);
-                if (newEmail === null) {
-                    alert("Operação cancelada");
-                    return false
-                }
-
-                let posiAr = newEmail.indexOf("@")
-                let emailInvalido = (newEmail.indexOf(" ") != -1 || posiAr == -1 || newEmail == '' ||newEmail.indexOf(".", posiAr) == -1)
-                
-                if (emailInvalido) {
-                    alert("Email invalido");
+        confirmacao = window.confirm(`Você deseja salvar seu novo contato como: \n Nome: ${newNome} \n Email: ${newEmail}`);
+        if (!confirmacao) {
+            alert("Alteração cancelada");
+        } else {
+            let inform = {
+                "id": numId,
+                "nome": newNome,
+                "email": newEmail
+            };
+            let data = JSON.stringify(inform)
+            let url = "http://127.0.0.1:8080/lista-testes/arq-php/edt-contatos.php";
+            let request = new XMLHttpRequest();
+            //Abertura da conexão
+            request.open("PUT", url);
+            // Cabeçalho
+            request.setRequestHeader("Content-type", "application/json");
+            request.send(data);
+            request.onload = function () {
+                let editou = (request.status) == 200;
+                if (editou) {
+                    alert("Editado com sucesso com sucesso");
                 } else {
-                    validaEmail = false;
-                }
-            }
-            confirmacao = window.confirm(`Você deseja salvar seu novo contato como: \n Nome: ${newNome} \n Email: ${newEmail}`);
-            if (!confirmacao) {
-                alert("Alteração cancelada");
-            } else {
-                let inform = {
-                    "id": numId,
-                    "nome": newNome,
-                    "email": newEmail
-                };
-                let data = JSON.stringify(inform)
-                let url = "http://127.0.0.1:8080/lista-testes/arq-php/edt-contatos.php";
-                let request = new XMLHttpRequest();
-                //Abertura da conexão
-                request.open("PUT", url);
-                // Cabeçalho
-                request.setRequestHeader("Content-type", "application/json");
-                request.send(data);
-                request.onload = function () {
-                    let editou = (request.status) == 200;
-                    if (editou) {
-                        alert("Editado com sucesso com sucesso");
+                    let contatoExiste = (request.status) == 204;
+                    if (contatoExiste) {
+                        alert("Erro ao editar \nO novo email já está cadastrado em outro contato de sua lista \nTente novamente com outro email")
+
                     } else {
-                        let contatoExiste = (request.status) == 204;
-                        if (contatoExiste) {
-                            alert("Erro ao editar \nO novo email já está cadastrado em outro contato de sua lista \nTente novamente com outro email")
-
-                        } else {
-                            alert("Erro ao editar \nEsse contato pode ter sido excluido em outra página \nAtualizando...")
-
-                        }
+                        alert("Erro ao editar \nEsse contato pode ter sido excluido em outra página \nAtualizando...")
                     }
-                    trazerContatos();
-                    return false;
                 }
+                trazerContatos();
+                return false;
             }
         }
     }
@@ -184,9 +183,6 @@ function excluirContato(numId, nomeContato, emailContato) {
     };
     let data = JSON.stringify(inform);
     excluir(data);
-
-
-
 
     //Função que vai fazer a requisição para que o contato seja excluido
     function excluir(idJson) {
@@ -207,12 +203,9 @@ function excluirContato(numId, nomeContato, emailContato) {
             }
             alert("Esse contato pode ter sido excluido em outra página \nAtualizando...");
             trazerContatos();
-
         }
     }
-
 }
-
 
 // ---->>>> Função para adicionar um contato <<<<----
 
@@ -220,18 +213,35 @@ function addContatos() {
     // Pegando dados do html 
     let nome = document.getElementById("input_name");
     let email = document.getElementById("input_email");
-
-    let inputVazio = (nome.value == "" || email.value == "")
-    let posiAr = ((email.value).indexOf("@"))
-    let emailInvalido = ((posiAr == -1) || (email.value).indexOf(".", posiAr) ==-1 || (email.value).indexOf(" ") != -1)
+    let nomeVazio = nome.value == "" || nome.value == " ";
+    let emailVazio = email.value == "";
+    let inputVazio = nomeVazio && emailVazio;
 
     if (inputVazio) {
-        alert("Campo de nome ou de email vazios");
+        alert("O campo de nome e email estão vazios");
+        email.style.border = "2px solid rgb(255, 84, 84)";
+        nome.style.border = "2px solid rgb(255, 84, 84)";
+        nome.focus();
         return false;
     }
-    if (emailInvalido) {
-        alert("Email inválido!!");
+    if (nomeVazio) {
+        alert("O campo de nome está vazio");
+        nome.style.border = "2px solid rgb(255, 84, 84)";
+        email.style.border = "2px solid black";
+        nome.focus();
         return false;
+    }
+    if (emailVazio) {
+        alert("O campo de email está vazio");
+        email.style.border = "2px solid rgb(255, 84, 84)";
+        nome.style.border = "2px solid black";
+        email.focus();
+        return false;
+    }
+    let emailInvalido = !(validacaoEmail(email.value))
+    if (emailInvalido) {
+        alert("Email invalido, tente novamente")
+        return false
     }
     let inform = {
         "nome": nome.value,
@@ -255,11 +265,39 @@ function addContatos() {
             email.value = '';
             alert("Contato salvo com sucesso");
         } else {
-            alert("Erro ao salvar o contato \n O e-mail inserido possivelmente já foi salvo anteriormente.")
+            alert("Erro ao salvar o contato \n O e-mail inserido pode já ter sido salvo anteriormente ou o numero de caracteres do campo nome ou email excede o válido (257).")
         }
         trazerContatos();
     }
+    email.style.border = "2px solid black";
+    nome.style.border = "2px solid black";
     return false;
+}
 
+function validacaoEmail(email) {
+    let posicaoArroba = email.lastIndexOf("@");
+    let tamanhoEmail = email.length;
+    let usuario = email.substring(0, posicaoArroba);
 
+    let temUsuario = usuario.length >= 1;
+    let dominio = email.substring(posicaoArroba, tamanhoEmail);
+    let posicaoPonto = dominio.indexOf(".");
+    let nomeDominio = dominio.substring(0, posicaoPonto);
+    let temDominio = nomeDominio.length >= 1;
+    let temPontoDominio = dominio.indexOf(".") >= 1;
+    let naoTerminaComPonto = dominio.lastIndexOf(".") < dominio.length - 1;
+    let naoTemEspaço = email.indexOf(" ") == -1;
+    let temUmArroba = posicaoArroba != -1 && usuario.indexOf('@') == -1;
+
+    let emailValido = (
+        temUsuario &&
+        temDominio &&
+        temPontoDominio &&
+        naoTerminaComPonto &&
+        naoTemEspaço &&
+        temUmArroba)
+    if (emailValido) {
+        return true
+    }
+    return false
 }

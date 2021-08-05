@@ -26,5 +26,4 @@ if ($retornouLinhas) {
     
 }
 echo json_encode($contatos);
-file_put_contents("dados.json", json_encode($contatos));
 

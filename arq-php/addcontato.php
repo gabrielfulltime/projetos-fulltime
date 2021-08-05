@@ -1,20 +1,14 @@
 <?php
-
-
+include("conexao.php");
 // Teste de dados Json  
-header("Content-type: text/html; charset=UTF-8");
-
 $data = json_decode(file_get_contents("php://input"));
 $nome = $data->nome;
 $email = $data->email;
 
-// Dê include em conexão.php
-include("conexao.php");
 $sql = "INSERT INTO contatos (id, nome, email) VALUES (DEFAULT, '$nome', '$email');";
 if ($con->connect_error) {
     echo $con->connect_error;
 }
-
 
 $queryRealizada = ($con->query($sql) == true) and ($con->error == "");
 if ($queryRealizada) {
